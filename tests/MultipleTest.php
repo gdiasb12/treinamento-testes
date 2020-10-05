@@ -8,6 +8,14 @@ use PHPUnit\Framework\TestCase;
 
 class MultipleTest extends TestCase
 {
+
+    public function testShouldReturnTheSumOfMultiplesOfThreeOrFiveUnderTen(): void
+    {
+        $multiple = new Multiple(10);
+
+        $this->assertEquals(23, $multiple->calculateMultiplesOfThreeOrFive());
+    }
+    
     public function testShouldReturnTheSumOfMultiplesOfThreeOrFiveUnderThousand(): void
     {
         $multiple = new Multiple(1000);
@@ -29,15 +37,10 @@ class MultipleTest extends TestCase
         $this->assertEquals(33173, $multiple->calculateMultiplesOfThreeOrFiveAndSeven());
     }
 
-    public function testShouldReturnTheSumOfMultiplesOfThreeOrFiveUnderTen(): void
-    {
-        $multiple = new Multiple(10);
-        $this->assertEquals(23, $multiple->calculateMultiplesOfThreeOrFive());
-    }
-
     public function testShouldReturnZeroWhenIsPassedAnValueUnderThree(): void
     {
-        $multiple = new Multiple(rand(-10, 3));
+        $multiple = new Multiple(rand(0, 3));
+
         $this->assertEquals(0, $multiple->calculateMultiplesOfThreeOrFive());
         $this->assertEquals(0, $multiple->calculateMultiplesOfThreeAndFive());
         $this->assertEquals(0, $multiple->calculateMultiplesOfThreeOrFiveAndSeven());
@@ -46,9 +49,17 @@ class MultipleTest extends TestCase
     public function testShouldReturnZeroWhenNoArgumentsArePassed(): void
     {
         $multiple = new Multiple();
+
         $this->assertEquals(0, $multiple->calculateMultiplesOfThreeOrFive());
         $this->assertEquals(0, $multiple->calculateMultiplesOfThreeAndFive());
         $this->assertEquals(0, $multiple->calculateMultiplesOfThreeOrFiveAndSeven());
+    }
+
+    public function testShouldReturnAnExceptionWhenAnNegativeNumberIsPassed(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        
+        $multiple = new Multiple(-8);
     }
 
     public function testShouldReturnAnExceptionWhenAnStringIsPassed(): void

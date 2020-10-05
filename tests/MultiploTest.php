@@ -1,32 +1,31 @@
 <?php
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace Tests;
 
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\Error\Error;
 use App\Multiple;
+use PHPUnit\Framework\TestCase;
 
 class MultipleTest extends TestCase
 {
     public function testShouldReturnTheSumOfMultiplesOfThreeOrFiveUnderThousand(): void
     {
         $multiple = new Multiple(1000);
-        
+
         $this->assertEquals(233168, $multiple->calculateMultiplesOfThreeOrFive());
     }
 
     public function testShouldReturnTheSumOfMultiplesOfThreeAndFiveUnderThousand(): void
     {
         $multiple = new Multiple(1000);
-        
+
         $this->assertEquals(33165, $multiple->calculateMultiplesOfThreeAndFive());
     }
 
     public function testShouldReturnTheSumOfMultiplesOfThreeOrFiveAndSevenUnderThousand(): void
     {
         $multiple = new Multiple(1000);
-        
+
         $this->assertEquals(33173, $multiple->calculateMultiplesOfThreeOrFiveAndSeven());
     }
 
@@ -37,19 +36,22 @@ class MultipleTest extends TestCase
     }
 
     public function testShouldReturnZeroWhenIsPassedAnValueUnderThree(): void
-    {        
+    {
         $multiple = new Multiple(rand(-10, 3));
-        $this->assertEquals(0, $multiple->calculateMultiplesOfThreeOrFive());        
-        $this->assertEquals(0, $multiple->calculateMultiplesOfThreeAndFive());        
-        $this->assertEquals(0, $multiple->calculateMultiplesOfThreeOrFiveAndSeven());        
+        $this->assertEquals(0, $multiple->calculateMultiplesOfThreeOrFive());
+        $this->assertEquals(0, $multiple->calculateMultiplesOfThreeAndFive());
+        $this->assertEquals(0, $multiple->calculateMultiplesOfThreeOrFiveAndSeven());
     }
+    
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testShouldReturnTheErrorWhenAnStringIsPassed(): void
+    {
 
-    // public function testShouldReturnTheErrorWhenAnStringIsPassed(): void
-    // {
-    //     // $this->expectError(Error::class);
-        
-    //     $multiple = new Multiple(rand(-10, 3));
-    //     $this->assertEquals(0, $multiple->calculateMultiplesOfThreeOrFive());
-        
-    // }
+        // $this->expectError(Error::class);
+        $multiple = new Multiple("ten");
+        // $this->assertEquals(0, $multiple->calculateMultiplesOfThreeOrFive());
+
+    }
 }

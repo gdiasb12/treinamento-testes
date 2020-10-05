@@ -3,7 +3,7 @@ namespace App;
 
 class Multiple
 {
-    private $number;
+    private int $number;
 
     public function __construct(int $number)
     {
@@ -14,16 +14,11 @@ class Multiple
     {
 
         $result = 0;
-        for ($c = 0; $c < $this->number; $c++) {
 
-            // ($c % 3 == 0 || $c % 5 == 0) ? $result + $c : $result
-
-            // $result = 0;
-            if ($c % 3 == 0 || $c % 5 == 0) {
-                $result += $c;
+        for ($counter = 0; $counter < $this->number; $counter++) {
+            if ($counter% 3 == 0 || $counter% 5 == 0) {
+                $result += $counter;
             }
-
-            // $result = ($c % 3 == 0 || $c % 5 == 0) ? $result + $c : $result;
         }
 
         return $result;
@@ -32,9 +27,10 @@ class Multiple
     public function calculateMultiplesOfThreeAndFive(): int
     {
         $result = 0;
-        for ($c = 0; $c < $this->number; $c++) {
-            if ($c % 3 == 0 && $c % 5 == 0) {
-                $result += $c;
+
+        for ($counter = 0; $counter < $this->number; $counter++) {
+            if ($counter% 3 == 0 && $counter% 5 == 0) {
+                $result += $counter;
             }
         }
         return $result;
@@ -43,9 +39,10 @@ class Multiple
     public function calculateMultiplesOfThreeOrFiveAndSeven(): int
     {
         $result = 0;
-        for ($c = 0; $c < $this->number; $c++) {
-            if ($c % 7 == 0 && ($c % 3 == 0 || $c % 5 == 0)) {
-                $result += $c;
+
+        for ($counter = 0; $counter < $this->number; $counter++) {
+            if ($counter% 7 == 0 && ($counter% 3 == 0 || $counter% 5 == 0)) {
+                $result += $counter;
             }
         }
         return $result;

@@ -49,7 +49,6 @@ final class Multiple
                 $result += $counter;
             }
         }
-
         return $result;    
     }
 }

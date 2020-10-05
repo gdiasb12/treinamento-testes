@@ -5,7 +5,7 @@ class Multiple
 {
     private int $number;
 
-    public function __construct(int $number)
+    public function __construct(int $number = 0)
     {
         $this->number = $number;
     }

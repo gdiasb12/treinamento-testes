@@ -42,16 +42,19 @@ class MultipleTest extends TestCase
         $this->assertEquals(0, $multiple->calculateMultiplesOfThreeAndFive());
         $this->assertEquals(0, $multiple->calculateMultiplesOfThreeOrFiveAndSeven());
     }
-    
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testShouldReturnTheErrorWhenAnStringIsPassed(): void
+
+    public function testShouldReturnZeroWhenNoArgumentsArePassed(): void
     {
+        $multiple = new Multiple();
+        $this->assertEquals(0, $multiple->calculateMultiplesOfThreeOrFive());
+        $this->assertEquals(0, $multiple->calculateMultiplesOfThreeAndFive());
+        $this->assertEquals(0, $multiple->calculateMultiplesOfThreeOrFiveAndSeven());
+    }
 
-        // $this->expectError(Error::class);
-        $multiple = new Multiple("ten");
-        // $this->assertEquals(0, $multiple->calculateMultiplesOfThreeOrFive());
-
+    public function testShouldReturnAnExceptionWhenAnStringIsPassed(): void
+    {
+        $this->expectException(\TypeError::class);
+        
+        $multiple = new Multiple("number");
     }
 }

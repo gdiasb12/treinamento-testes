@@ -24,14 +24,33 @@ class HappyNumber
 
     public function checkHappyNumber(): string
     {
-        if ($this->calculateSquaredValue($this->number)) {
-            return "The number {$this->number}, is a Happy Number!";
-        } else {
-            return "The number {$this->number}, isn't a Happy Number!";
+        $number = $this->number;
+        
+        if ($this->validateHappyNumber($number)) {
+            return "The number {$number}, is a Happy Number!";
         }
+
+        return "The number {$number}, isn't a Happy Number!";
     }
 
-    private function calculateSquaredValue($value)
+    private function validateHappyNumber($number)
+    {
+        $sumOfSquaredValues = $this->calculateSquaredValue($number);
+
+        if ($this->searchValueIntoListOfNumber($sumOfSquaredValues)) {
+            return false;
+        }
+
+        if ($sumOfSquaredValues == 1) {
+            return true;
+        }
+
+        $this->setValueIntoListOfNumber($sumOfSquaredValues);
+
+        return $this->validateHappyNumber($sumOfSquaredValues);
+    }
+
+    private function calculateSquaredValue($value): int
     {
         $sumOfSquaredValues = 0;
 
@@ -42,21 +61,7 @@ class HappyNumber
             $sumOfSquaredValues += $squaredValue;
         }
 
-        if ($this->searchValueIntoListOfNumber($sumOfSquaredValues)) {
-
-            return false;
-        } else {
-
-            if ($sumOfSquaredValues == 1) {
-                
-                return true;
-            }
-
-            $this->setValueIntoListOfNumber($sumOfSquaredValues);
-
-        }
-
-        return $this->calculateSquaredValue($sumOfSquaredValues);
+        return $sumOfSquaredValues;
     }
 
     private function setValueIntoListOfNumber($number)
@@ -68,8 +73,8 @@ class HappyNumber
     {
         if (array_search($number, $this->listOfNumbers) === FALSE) {
             return false;
-        } else {
-            return true;
         }
+
+        return true;
     }
 }

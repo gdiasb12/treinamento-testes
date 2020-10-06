@@ -1,7 +1,7 @@
 <?php
 namespace App;
 
-final class Multiple
+class Multiple
 {
     private int $number;
 

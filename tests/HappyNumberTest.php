@@ -8,34 +8,41 @@ use PHPUnit\Framework\TestCase;
 
 final class HappyNumberTest extends TestCase
 {
-    public function testShouldReturnAnExceptionWhenAnStringIsPassed(): void
+    /**
+     * @dataProvider incorrectArgumentProvider
+     */
+    public function testReturnsAnExceptionWhenAnIncorrectArgumentIsPassed($parameter, $exceptionClass): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException($exceptionClass);
         
-        $happyNumber = new HappyNumber("number");
+        $happyNumber = new HappyNumber($parameter);
     }
 
-    public function testShouldReturnAnExceptionWhenAnNegativeNumberIsPassed(): void
+    public function incorrectArgumentProvider()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        
-        $happyNumber = new HappyNumber(-8);
+        return [
+            "can't be a negative number" => [-8, \InvalidArgumentException::class],
+            "can't be a string" => ["number", \TypeError::class]
+        ];
     }
 
-    public function testIfThatIsAHappyNumberReturnsAMessage(): void
+    /**
+     * @dataProvider numberProvider
+     */
+    public function testReturnsIfThatIsAHappyNumberOrNot($number, $expected): void
     {
-        $number = 7;
+        // $number = 7;
         $happyNumber = new HappyNumber($number);
         
-        $this->assertSame("The number {$number}, is a Happy Number!", $happyNumber->checkHappyNumber());
+        $this->assertSame($expected, $happyNumber->checkHappyNumber());
     }
 
-    public function testIfThatIsNotAHappyNumberReturnsAMessage(): void
+    public function numberProvider()
     {
-        $number = 8;
-        $happyNumber = new HappyNumber($number);
-        
-        $this->assertSame("The number {$number}, isn't a Happy Number!", $happyNumber->checkHappyNumber());
+        return [
+            "7 is a Happy Number!" => [7, true],
+            "8 isn't a Happy Number!" => [8, false],
+            "11 is a Happy Number!" => [11, false]
+        ];
     }
-
 }

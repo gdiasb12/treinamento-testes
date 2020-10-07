@@ -1,5 +1,6 @@
 <?php
-declare (strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Tests;
 
@@ -8,6 +9,23 @@ use PHPUnit\Framework\TestCase;
 
 final class MultipleTest extends TestCase
 {
+    /**
+     * @dataProvider incorrectArgumentProvider
+     */
+    public function testReturnsAnExceptionWhenAnIncorrectArgumentIsPassed($parameter, $exceptionClass): void
+    {
+        $this->expectException($exceptionClass);
+
+        $multiple = new Multiple($parameter);
+    }
+
+    public function incorrectArgumentProvider()
+    {
+        return [
+            "can't be a negative number" => [-8, \InvalidArgumentException::class],
+            "can't be a string" => ["number", \TypeError::class]
+        ];
+    }
 
     public function testShouldReturnTheSumOfMultiplesOfThreeOrFiveUnderTen(): void
     {
@@ -15,7 +33,7 @@ final class MultipleTest extends TestCase
 
         $this->assertEquals(23, $multiple->calculateMultiplesOfThreeOrFive());
     }
-    
+
     public function testShouldReturnTheSumOfMultiplesOfThreeOrFiveUnderThousand(): void
     {
         $multiple = new Multiple(1000);
@@ -53,19 +71,5 @@ final class MultipleTest extends TestCase
         $this->assertEquals(0, $multiple->calculateMultiplesOfThreeOrFive());
         $this->assertEquals(0, $multiple->calculateMultiplesOfThreeAndFive());
         $this->assertEquals(0, $multiple->calculateMultiplesOfThreeOrFiveAndSeven());
-    }
-
-    public function testShouldReturnAnExceptionWhenAnNegativeNumberIsPassed(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        
-        $multiple = new Multiple(-8);
-    }
-
-    public function testShouldReturnAnExceptionWhenAnStringIsPassed(): void
-    {
-        $this->expectException(\TypeError::class);
-        
-        $multiple = new Multiple("number");
     }
 }

@@ -42,7 +42,11 @@ final class HappyNumberTest extends TestCase
         return [
             "7 is a Happy Number!" => [7, true],
             "8 isn't a Happy Number!" => [8, false],
+<<<<<<< HEAD
             "11 isn't a Happy Number!" => [11, false]
+=======
+            "11 is a Happy Number!" => [11, false]
+>>>>>>> 726e11b0c8e18caa091317accc790cb076d9f9c6
         ];
     }
 }

@@ -22,15 +22,11 @@ class HappyNumber
         }
     }
 
-    public function checkHappyNumber(): string
+    public function checkHappyNumber(): bool
     {
         $number = $this->number;
         
-        if ($this->validateHappyNumber($number)) {
-            return "The number {$number}, is a Happy Number!";
-        }
-
-        return "The number {$number}, isn't a Happy Number!";
+        return $this->validateHappyNumber($number);
     }
 
     private function validateHappyNumber($number)

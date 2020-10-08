@@ -8,4 +8,5 @@ bash:
 	docker-compose exec php-fpm bash
 
 test:
-	docker-compose exec php-fpm ./vendor/bin/phpunit --testdox
+	docker-compose exec php-fpm ./vendor/bin/phpunit --testdox --coverage-html log
+	

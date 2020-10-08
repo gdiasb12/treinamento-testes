@@ -27,39 +27,15 @@ class WordInNumber
     {
         $wordValue = $this->calculateWordValue();
 
-        $message = "The value of the word {$this->word} is {$wordValue} and";
+        $message = "Word: {$this->word}, value: {$wordValue},";
 
-        $message .= $this->checkPrimeNumber($wordValue) ? " is prime," : " isn't prime,";
+        $message .= $this->checkPrimeNumber($wordValue) ? " prime," : " not prime,";
 
-        $message .= $this->checkHappyNumber($wordValue) ? " is a happy number" : " isn't a happy number";
+        $message .= $this->checkHappyNumber($wordValue) ? " happy number" : " not happy number";
        
-        $message .= $this->checkMultiple($wordValue) ? " and is multiple of 3 or 5." : " and isn't multiple of 3 or 5.";
+        $message .= $this->checkMultiple($wordValue) ? " and multiple of 3 or 5." : " and not multiple of 3 or 5.";
 
         return $message;
-    }
-
-    public function checkMultiple($number)
-    {
-        return ($number % 3 == 0 || $number % 5 == 0);
-    }
-
-
-    public function checkPrimeNumber($number): bool
-    {
-        for ($count = 2; $count < $number; $count++) {
-            if ($number % $count == 0) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    public function checkHappyNumber($number): bool
-    {
-        $happyNumber = new HappyNumber($number);
-
-        return $happyNumber->checkHappyNumber();
     }
 
     public function generateAlphabetList()
@@ -86,5 +62,29 @@ class WordInNumber
         }
 
         return $value;
+    }
+
+    private function checkMultiple($number)
+    {
+        return ($number % 3 == 0 || $number % 5 == 0);
+    }
+
+
+    private function checkPrimeNumber($number): bool
+    {
+        for ($count = 2; $count < $number; $count++) {
+            if ($number % $count == 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function checkHappyNumber($number): bool
+    {
+        $happyNumber = new HappyNumber($number);
+
+        return $happyNumber->checkHappyNumber();
     }
 }

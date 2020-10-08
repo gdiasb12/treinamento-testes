@@ -70,15 +70,33 @@ final class WordInNumberTest extends TestCase
     public function testReturnsAllTheInformationAboutWordValue($word, $valueExpected): void
     {
         $alphabet = new WordInNumber($word);
-        
+
         $this->assertSame($valueExpected, $alphabet->getWordValueInfo());
     }
 
     public function wordsProvider()
     {
         return [
-             "word abca" => ["abca", "The value of the word abca is 7 and is prime, is a happy number and isn't multiple of 3 or 5."],
-             "word ABC" => ["ABC", "The value of the word ABC is 84 and isn't prime, isn't a happy number and is multiple of 3 or 5."]
+            "'abca', 7, prime, happy, not multiple" =>
+            [
+                "abca",
+                "Word: abca, value: 7, prime, happy number and not multiple of 3 or 5."
+            ],
+            "'ABC', 84, not prime, not happy, multiple" =>
+            [
+                "ABC",
+                "Word: ABC, value: 84, not prime, not happy number and multiple of 3 or 5."
+            ],
+            "'objective', 91, not prime, happy, not multiple" =>
+            [
+                "objective",
+                "Word: objective, value: 91, not prime, happy number and not multiple of 3 or 5."
+            ],
+            "'test', 64, not prime, not happy, not multiple" =>
+            [
+                "test",
+                "Word: test, value: 64, not prime, not happy number and not multiple of 3 or 5."
+            ],
         ];
     }
 }

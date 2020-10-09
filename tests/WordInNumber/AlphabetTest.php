@@ -25,6 +25,6 @@ final class AlphabetTest extends TestCase
 
         $alphabet = new Alphabet();
         
-        $this->assertEquals($expectedArray, $alphabet->generateAlphabetList());
+        $this->assertEquals($expectedArray, $alphabet->getList());
     }
 }

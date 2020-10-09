@@ -40,11 +40,19 @@ final class WordValueTest extends TestCase
      */
     public function testReturnsTheValueOfTheWord($word, $valueExpected): void
     {
-        $alphabet = new Alphabet();
-        
-        $alphabet = new WordValue($word, $alphabet);
+        $alphabetList = array_merge(
+            array_combine(range('a', 'z'), range('1', '26')),
+            array_combine(range('A', 'Z'), range('27', '52'))
+        );
 
-        $this->assertEquals($valueExpected, $alphabet->calculateWordValue());
+        $alphabet = $this->createMock(Alphabet::class);
+
+        $alphabet->method('getList')
+            ->willReturn($alphabetList);
+
+        $wordValue = new WordValue($word, $alphabet);
+
+        $this->assertEquals($valueExpected, $wordValue->calculateWordValue());
     }
 
     public function wordsAndValuesProvider()

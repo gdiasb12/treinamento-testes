@@ -29,6 +29,7 @@ class CartTest extends TestCase
 
     public function testReturnsZeroWhenIsEmpty(): void
     {
+<<<<<<< HEAD
         $this->assertEquals(0, $this->cart->countItemsCart());
     }
 
@@ -130,5 +131,54 @@ class CartTest extends TestCase
         $totalPriceExpected = $price * $amount;
 
         $this->assertEquals($totalPriceExpected, $this->cart->calculateTotalPrice());
+=======
+        $count = $this->cart->countItensCart();
+
+        $this->assertEquals(0, $count);
+    }
+
+    public function testIfAItemCanBeAddIntoTheCart(): void
+    {
+        //Mock of Product Class
+        $product = $this->createMock(Product::class, ["T-shirt", 19.90]);
+
+        $this->cart->setItemCart($product, 3);
+
+        $count = $this->cart->countItensCart();
+
+        $this->assertEquals(3, $count);
+    }
+
+    public function testRemoveProductsFromTheCart(): void
+    {
+        $itemList = array(
+            [
+                "name" => "T-shirt",
+                "price" => 19.90,
+                "amount" => 3
+            ],
+            [
+                "name" => "Hat",
+                "price" => 15.90,
+                "amount" => 1
+            ]
+        );
+
+        foreach ($itemList as $item) {
+            $product = $this->createMock(Product::class, [$item["name"], $item["price"]]);
+
+            $this->cart->setItemCart($product, $item["amount"]);
+        }
+
+        $count = $this->cart->countItensCart();
+
+        $this->assertEquals(4, $count);
+
+        $this->cart->removeItemCart("T-shirt", 2);
+
+        $countAfterRemove = $this->cart->countItensCart();
+
+        // $this->assertEquals(1, $countAfterRemove);
+>>>>>>> 8f8aa26f3a0befacf6685a96f9d25610ba36947c
     }
 }

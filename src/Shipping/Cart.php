@@ -3,7 +3,6 @@
 namespace App\Shipping;
 
 use App\Shipping\User;
-use App\Shipping\ItemCart;
 use App\Shipping\Product;
 
 class Cart
@@ -69,6 +68,6 @@ class Cart
             $totalPrice += $item->getPrice();
         }
 
-        return number_format($totalPrice, 2, '.', '');
+        return $totalPrice;
     }
 }

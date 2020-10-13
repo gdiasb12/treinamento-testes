@@ -7,7 +7,6 @@ namespace Tests\Shipping;
 use App\Shipping\User;
 use App\Shipping\Cart;
 use App\Shipping\Product;
-use App\Shipping\ItemCart;
 use PHPUnit\Framework\TestCase;
 
 class CartTest extends TestCase
@@ -17,7 +16,7 @@ class CartTest extends TestCase
     protected function setUp(): void
     {
         //Mock of User Class
-        $user = $this->createMock(User::class, ["Gabriel", "15600000"]);
+        $user = $this->createMock(User::class);
 
         $this->cart = new Cart($user);
     }
@@ -32,26 +31,37 @@ class CartTest extends TestCase
         $this->assertEquals(0, $this->cart->countItemsCart());
     }
 
+    public function testReturnTheCartUser(): void
+    {
+        $this->assertInstanceOf(User::class, $this->cart->getUser());
+    }
+
     /**
      * @dataProvider productsProvider
      */
-    public function testProductCanBeInsertedIntoTheCart($name, $price, $amount): void
+    public function testProductCanBeInsertedIntoTheCart($amount): void
     {
         //Mock of Product Class
-        $product = $this->createMock(Product::class, [$name, $price]);
+        $product = $this->createMock(Product::class);
 
         $this->cart->setItemCart($product, $amount);
 
         $this->assertEquals($amount, $this->cart->countItemsCart());
     }
 
-    /**
-     * @dataProvider productsProvider
-     */
-    public function testReturnCartItems($name, $price, $amount): void
+    public function productsProvider()
     {
+        return [
+            'one product inserted' => [1],
+            'more than one inserted' => [rand(2, 5)]
+        ];
+    }
+
+    public function testReturnCartItems(): void
+    {
+        $amount = rand(2, 10);
         //Mock of Product Class
-        $product = $this->createMock(Product::class, [$name, $price]);
+        $product = $this->createMock(Product::class);
 
         $this->cart->setItemCart($product, $amount);
 
@@ -66,20 +76,12 @@ class CartTest extends TestCase
         }
     }
 
-    public function productsProvider()
-    {
-        return [
-            'one product inserted' => ["T-shirt", 19.90, 1],
-            'more than one inserted' => ["Hat", 59.90, rand(2, 5)]
-        ];
-    }
-
     /**
      * @dataProvider productsToRemoveProvider
      */
     public function testProductsCanBeRemovedFromTheCart($amountToRemove, $remainingAmount): void
     {
-        $product = $this->createMock(Product::class, ["T-shirt", 19.90]);
+        $product = $this->createMock(Product::class);
 
         $product->method('getName')
             ->willReturn("T-shirt");
@@ -104,7 +106,7 @@ class CartTest extends TestCase
 
     public function testAllTheProductsCanBeRemoved(): void
     {
-        $product = $this->createMock(Product::class, ["T-shirt", 19.90]);
+        $product = $this->createMock(Product::class);
 
         $this->cart->setItemCart($product, 4);
 
@@ -115,12 +117,12 @@ class CartTest extends TestCase
         $this->assertEquals(0, $this->cart->countItemsCart());
     }
 
-    /**
-     * @dataProvider productsProvider
-     */
-    public function testReturnsTheTotalPriceOfTheCart($name, $price, $amount): void
+    public function testReturnsTheTotalPriceOfTheCart(): void
     {
-        $product = $this->createMock(Product::class, [$name, $price]);
+        $amount = rand(1,10);
+        $price = 19.90;
+
+        $product = $this->createMock(Product::class);
 
         $product->method('getPrice')
             ->willReturn($price);

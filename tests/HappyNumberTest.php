@@ -31,7 +31,6 @@ final class HappyNumberTest extends TestCase
      */
     public function testReturnsIfThatIsAHappyNumberOrNot($number, $expected): void
     {
-        // $number = 7;
         $happyNumber = new HappyNumber($number);
         
         $this->assertSame($expected, $happyNumber->checkHappyNumber());

@@ -5,7 +5,7 @@ namespace App\Shipping\Model;
 use App\Shipping\Model\User;
 use App\Shipping\Model\Product;
 
-class Cart
+class Cart implements CartInterface
 {
     private User $user;
     

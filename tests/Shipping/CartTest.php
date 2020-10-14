@@ -26,9 +26,14 @@ class CartTest extends TestCase
         $this->assertInstanceOf(Cart::class, $this->cart);
     }
 
-    public function testReturnsZeroWhenIsEmpty(): void
+    public function testReturnsZeroItemsWhenIsEmpty(): void
     {
         $this->assertEquals(0, $this->cart->countItemsCart());
+    }
+
+    public function testReturnsTotalPriceAsZeroWhenIsEmpty(): void
+    {
+        $this->assertEquals(0, $this->cart->calculateTotalPrice());
     }
 
     public function testReturnTheCartUser(): void
@@ -53,7 +58,8 @@ class CartTest extends TestCase
     {
         return [
             'one product inserted' => [1],
-            'more than one inserted' => [rand(2, 5)]
+            'two products inserted' => [2],
+            'more than two inserted' => [rand(3, 10)]
         ];
     }
 
@@ -117,9 +123,11 @@ class CartTest extends TestCase
         $this->assertEquals(0, $this->cart->countItemsCart());
     }
 
-    public function testReturnsTheTotalPriceOfTheCart(): void
+    /**
+     * @dataProvider productsProvider
+     */
+    public function testReturnsTheTotalPriceOfTheCart($amount): void
     {
-        $amount = rand(1,10);
         $price = 19.90;
 
         $product = $this->createMock(Product::class);

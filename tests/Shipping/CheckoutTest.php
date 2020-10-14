@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Shipping;
 
 use App\Shipping\Checkout;
-use App\Shipping\User;
-use App\Shipping\Cart;
+use App\Shipping\Model\User;
+use App\Shipping\Model\Cart;
 use App\Shipping\Service\ShippingService;
 use PHPUnit\Framework\TestCase;
 

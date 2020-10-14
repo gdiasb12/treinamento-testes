@@ -3,7 +3,7 @@
 namespace App\Shipping;
 
 use App\Shipping\Service\ShippingServiceInterface;
-use App\Shipping\Cart;
+use App\Shipping\Model\Cart;
 
 class Checkout
 {

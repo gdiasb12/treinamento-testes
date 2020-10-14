@@ -3,7 +3,7 @@
 namespace App\Shipping;
 
 use App\Shipping\Service\ShippingServiceInterface;
-use App\Shipping\Cart;
+use App\Shipping\Model\CartInterface;
 
 class Checkout
 {
@@ -14,7 +14,7 @@ class Checkout
         $this->shippingService = $shippingService;
     }
 
-    public function calculateTotal(Cart $cart): float
+    public function calculateTotal(CartInterface $cart): float
     {
         $zipCode = $cart->getUser()->getAddress();
 

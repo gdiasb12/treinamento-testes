@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Shipping;
+namespace Tests\Shipping\Model;
 
 use App\Shipping\Model\User;
 use PHPUnit\Framework\TestCase;

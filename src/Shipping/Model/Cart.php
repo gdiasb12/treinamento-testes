@@ -8,7 +8,7 @@ use App\Shipping\Model\Product;
 class Cart implements CartInterface
 {
     private User $user;
-    
+
     private array $itemsCart = [];
 
     public function __construct(User $user)
@@ -38,18 +38,22 @@ class Cart implements CartInterface
         return count($this->itemsCart);
     }
 
-    public function removeItemCart($productName, $amount = 1): void
+    public function removeItemCart(string $productName, int $amount = 1): void
     {
         $itemsCart = $this->itemsCart;
 
-        for ($count = 1; $count <= $amount; $count++) {
+        $count = 1;
+
+        do {
             foreach ($itemsCart as $key => $item) {
                 if ($productName == $item->getName()) {
                     unset($itemsCart[$key]);
                     break;
                 }
             }
-        }
+
+            $count++;
+        } while ($count <= $amount);
 
         $this->itemsCart = $itemsCart;
     }

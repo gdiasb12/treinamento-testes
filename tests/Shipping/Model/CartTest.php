@@ -85,16 +85,16 @@ class CartTest extends TestCase
     /**
      * @dataProvider productsToRemoveProvider
      */
-    public function testProductsCanBeRemovedFromTheCart($amountToRemove, $remainingAmount): void
+    public function testProductsCanBeRemovedFromTheCart($amountToRemove, $remainingAmount, $amountToInsert): void
     {
         $product = $this->createMock(Product::class);
 
         $product->method('getName')
             ->willReturn("T-shirt");
 
-        $this->cart->setItemCart($product, 4);
+        $this->cart->setItemCart($product, $amountToInsert);
 
-        $this->assertEquals(4, $this->cart->countItemsCart());
+        $this->assertEquals($amountToInsert, $this->cart->countItemsCart());
 
         $this->cart->removeItemCart("T-shirt", $amountToRemove);
 
@@ -104,9 +104,9 @@ class CartTest extends TestCase
     public function productsToRemoveProvider()
     {
         return [
-            'remove one, remains three' => [1, 3],
-            'remove two, remains two' => [2, 2],
-            'remove four, remains zero' => [4, 0]
+            'remove one, remains three of four inserted' => [1, 3, 4],
+            'remove two, remains two of four inserted' => [2, 2, 4],
+            'remove four, remains zero of four inserted' => [4, 0, 4]
         ];
     }
 
